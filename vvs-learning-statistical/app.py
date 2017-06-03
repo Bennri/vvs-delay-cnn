@@ -60,6 +60,7 @@ def postData():
                 current_doc['data'][station][line.lower()+direction][0] += delay
                 current_doc['data'][station][line.lower()+direction][1] += 1
         new_docs.append(current_doc)
+        db[insert_id] = current_doc
 
     step_size = 55
     for x in range(0, len(new_docs), step_size):
@@ -70,7 +71,10 @@ def postData():
 
 @app.route('/', methods=['GET'])
 def getDelay():
-    return
+    timestamp = float(request.args.get('timestamp'))
+    insert_id = get_id_from_timestamp(timestamp)
+    current_doc = db[insert_id]
+    return jsonify(current_doc), 200
 
 
 port = os.getenv('PORT', '5000')
