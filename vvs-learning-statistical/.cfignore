@@ -1,0 +1,8 @@
+vcap.json
+*.pyc
+
+
+.gitignore
+LICENSE
+README.md
+vcap-local.json
